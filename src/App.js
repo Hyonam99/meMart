@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import Navbar from './Navbar'
+import Home from './Home';
+import './App.css'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import Emen from './Emen';
+import Emenf from './Emenf';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  return(
+
+    <Router>
+      <section>
+        <div className='header'>
+          <Navbar />
+        </div>
+
+        <div className='other-content'>
+          <Switch>
+
+          <Route exact path="/">
+          <Home />
+          </Route>
+          <Route path="/Emen">
+          <Emen />
+          </Route>
+          <Route path="/Emenf">
+          <Emenf />
+          </Route>
+
+          </Switch>
+          </div>
+      </section>
+
+    </Router>
   );
 }
 
-export default App;
+export default App
