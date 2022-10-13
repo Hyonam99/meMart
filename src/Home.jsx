@@ -12,7 +12,7 @@ const Home = () => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    fetch("https://api.escuelajs.co/api/v1/products ")
+    fetch("https://api.escuelajs.co/api/v1/products/")
     .then((response) => {
       if(!response.ok){
           throw Error('could not fetch data from resource')

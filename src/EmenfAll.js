@@ -24,6 +24,7 @@ function EcomAll({ allblog, companyName }) {
    
   }
 
+
   let dollarUSLocale = Intl.NumberFormat('en-US');
 
   const getLink = (amount) => {

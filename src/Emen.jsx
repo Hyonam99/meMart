@@ -1,11 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import EcomAll from "./EcomAll";
+import EmenAll from "./EcomAll";
 
 
 
 
-const Home = () => {
+const Emen = () => {
 
   const [blogs, setBlogs] = useState(null)
   const [pending, setPending] = useState(true)
@@ -34,8 +34,7 @@ const Home = () => {
     
     <section className="home">
       <div className="blog-heading">
-        <p>Womens Classic Categories</p>
-
+        <p>Mens Categories here</p>
       </div>
 
       
@@ -43,7 +42,7 @@ const Home = () => {
       
       {error && <div> { error } </div>}
         {pending && <div>Fetching data from resource please wait</div>}
-        {blogs && <EcomAll  allblog={blogs} companyName='Farida company'/>}
+        {blogs && <EmenAll  allblog={blogs} companyName='Farida company'/>}
         
 
       
@@ -54,4 +53,4 @@ const Home = () => {
 }
 
  
-export default Home;
+export default Emen;

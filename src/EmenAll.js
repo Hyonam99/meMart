@@ -36,6 +36,7 @@ function EcomAll({ allblog, companyName }) {
       something
     );
   }
+   
 
   // console.log(allblog.length)
   return (
@@ -47,7 +48,7 @@ function EcomAll({ allblog, companyName }) {
            
                 <div className="product-display" key={blog.id}>
                     <div className="displayImage">
-                      <img src={blog.category.image} alt="" />
+                      <img src={blog.image} alt="" />
                     </div>
                     <h4>{blog.title}</h4>
                 <p>{blog.description}</p>
