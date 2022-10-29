@@ -1,5 +1,8 @@
+import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
+import ErrorPage from "./components/ErrorPage";
+import Loading from "./components/Loading";
 import EcomAll from "./EcomAll";
 
 
@@ -11,21 +14,41 @@ const Home = () => {
   const [pending, setPending] = useState(true)
   const [error, setError] = useState(null)
 
+  const  base = "https://dummyjson.com/products";
+ 
+
   useEffect(() => {
-    fetch("https://api.escuelajs.co/api/v1/products/")
-    .then((response) => {
-      if(!response.ok){
-          throw Error('could not fetch data from resource')
-      }
-      return response.json()})
-    .then(data => { 
-      console.log(data)
-      setBlogs(data)
-      setPending(false)
-      setError(null)
-    })
-    .catch((error) => {setError(error.message);})
-    setPending(false)
+    async function getPost() { 
+      const data = await axios.get(base);
+      setTimeout(() =>{
+            setPending(false)
+            setBlogs(data.data.products)
+          }, 3000)
+          setError(null)
+    }
+
+// ! the code below is replaced with the code above by using the async await on axios: do not delete !
+    // axios.get(base)
+    // .then((data) => {
+
+    //   console.log(data)
+
+    //   setTimeout(() =>{
+    //     setPending(false)
+    //     setBlogs(data.data.products)
+    //   }, 3000)
+    //   setError(null)
+    // })
+
+    getPost()
+    .catch((error) => {
+        setTimeout(() =>{
+        setPending(false)
+        setError(error)
+      }, 3000)
+    });
+
+    
   }, [])
   
 
@@ -41,9 +64,11 @@ const Home = () => {
       
 
       
-      {error && <div> { error } </div>}
-        {pending && <div>Fetching data from resource please wait</div>}
-        {blogs && <EcomAll  allblog={blogs} companyName='Farida company'/>}
+        {error && <div> <ErrorPage /> </div>}
+
+        {pending && <div><Loading /></div>}
+        
+        {blogs && <EcomAll  allblog={blogs} />}
         
 
       

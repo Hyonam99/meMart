@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import EmenAll from "./EcomAll";
-
-
+import ErrorPage from "./components/ErrorPage";
+import Loading from "./components/Loading";
 
 
 const Emen = () => {
@@ -12,7 +12,7 @@ const Emen = () => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    fetch("https://api.escuelajs.co/api/v1/products/")
+    fetch("https://dummyjson.com/products/categories")
     .then((response) => {
       if(!response.ok){
           throw Error('could not fetch data from resource')
@@ -40,9 +40,11 @@ const Emen = () => {
       
 
       
-      {error && <div> { error } </div>}
-        {pending && <div>Fetching data from resource please wait</div>}
-        {blogs && <EmenAll  allblog={blogs} companyName='Farida company'/>}
+      {error && <div> <ErrorPage /> </div>}
+
+          {pending && <div><Loading /></div>}
+
+        {blogs && <EmenAll  allblog={blogs} />}
         
 
       

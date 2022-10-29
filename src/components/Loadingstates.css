@@ -1,0 +1,39 @@
+.page{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+}
+
+.donut-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: orangered;
+  border-radius: 50%;
+  animation: donut-spin 1.2s linear infinite;
+}
+
+@keyframes donut-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.error-note{
+  width:50%;
+  margin:10% auto;
+}
+.error-heading{
+  font-size: 2rem;
+  margin-bottom: 2%;
+  color:rgb(200, 8, 8)
+}
+.error-title{
+  font-size: 1rem;
+  font-weight: 500;
+  color:rgb(53, 50, 50)
+  }

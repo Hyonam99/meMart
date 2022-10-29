@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Avatar from './Image assets/Avatar.jpg'
+
 
 function EcomAll({ allblog, companyName }) {
   

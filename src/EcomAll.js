@@ -1,28 +1,8 @@
 import { useState } from "react";
-import Avatar from './Image assets/Avatar.jpg'
+import ReactPaginate from 'react-paginate';
+import './App.css'
 
-function EcomAll({ allblog, companyName }) {
-  
-  const [unit1, setUnit1] = useState(0);
-  const [unit2, setUnit2] = useState(10);
-
-  const nextP = () => {
-    if(unit2 >= 50){
-      setUnit2(unit2)
-    }else {
-      setUnit2(unit2 + 10)
-      setUnit1(unit1 + 10)
-    }
-  }
-  const prevP = () => {
-    if(unit1 == 0){
-      setUnit1(unit1)
-    }else {
-      setUnit1(unit1 - 10)
-      setUnit2(unit2 - 10)
-    }
-   
-  }
+function EcomAll({ allblog }) {
 
   let dollarUSLocale = Intl.NumberFormat('en-US');
 
@@ -37,35 +17,62 @@ function EcomAll({ allblog, companyName }) {
     );
   }
 
+  
+  const [users, setUsers] = useState(allblog)
+  const [pageNumber, setPageNumber] = useState(0)
+
+  const userPerPage = 10
+  const pageVisited = pageNumber * userPerPage
+
+  const displayUsers = users.slice(pageVisited, pageVisited + userPerPage).map((blog) => (
+           
+    <div className="product-display" key={blog.id}>
+        <div className="displayImage">
+          <img src={blog["images"][0]} alt="" />
+        </div>
+        <h4>{blog.title}</h4>
+    <p className="product-description">{`${blog.description.substring(0, 88)}...`}</p>
+    <p className="product-price" onClick={getPrice}>{`Price : N ${dollarUSLocale.format(blog.price * 500)}`}</p>
+    <p className="product-price" onClick={getLink}>Discounted price @ 70% off <span className="product-price discount"> {`N${dollarUSLocale.format(Math.floor((blog.price * 500) / 7))}`}</span></p>
+    </div>
+
+
+))
+
+  const pageCount = Math.ceil(users.length / userPerPage)
+
+  const changePage = ({selected}) => {
+      setPageNumber(selected)
+  }
+
+ 
   // console.log(allblog.length)
   return (
     <div className="product-preview">
       
       <section className="products-container" >
-      {allblog
-        .map((blog) => (
-           
-                <div className="product-display" key={blog.id}>
-                    <div className="displayImage">
-                      <img src={blog.category.image} alt="" />
-                    </div>
-                    <h4>{blog.title}</h4>
-                <p>{blog.description}</p>
-                <p onClick={getPrice}>{`price : N ${dollarUSLocale.format(blog.price * 100)}`}</p>
-                <p onClick={getLink}>{`Discounted price 70% off : N${dollarUSLocale.format(Math.floor((blog.price * 100) / 7))}` }</p>
-                </div>
-          
-          
-        ))
-        .slice(unit1, unit2)}
+      {displayUsers}
 
         </section>
       <div className="pagebreak">
-        <button onClick={prevP}>Prev</button>
-        <p> {`${(unit1 / 10) + 1}....`} </p>
-        <button onClick={nextP}>Next</button>
-        <p>Showing {`${unit1 } entries out of 200`}</p>
+
+      <section className="pagebreak-description">Page <span>{ `${pageNumber + 1}` }</span></section>
+    <ReactPaginate 
+      breakLabel="..."
+      nextLabel="next >"
+      previousLabel="< prev"
+      pageCount={pageCount}
+      onPageChange={changePage}
+      containerClassName={'paginateButtons'}
+      previousLinkClassName={'prevButton'}
+      nextLinkClassName={'nextButton'}
+      disabledClassName={'disabledButton'}
+      activeClassName={'activeButton'}
+      renderOnZeroPageCount={null}
+      />
+
       </div>
+      
     </div>
   );
 }
